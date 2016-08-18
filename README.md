@@ -1,2 +1,2 @@
-# trailpack-plugins-manager
-Manage plugin system for Trails project
+# lisa-plugins-manager
+Manage plugin system for L.I.S.A. 
