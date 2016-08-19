@@ -19,7 +19,7 @@ describe('PluginService', () => {
         assert(plugin.version)
         assert.equal(plugin.name, pluginName)
         assert.equal(plugin.activated, false)
-        expect('./node_modules/'+pluginName).to.be.a.directory()
+        expect('./node_modules/' + pluginName).to.be.a.directory()
       })
   })
 

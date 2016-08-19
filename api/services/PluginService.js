@@ -18,8 +18,8 @@ module.exports = class PluginService extends Service {
       }
     }).then(plugins => {
       plugins.forEach(plugin => {
-        const pluginClass = require(plugin.name)
-        const pluginInstance = new pluginClass(this.app.lisa)
+        const PluginClass = require(plugin.name)
+        const pluginInstance = new PluginClass(this.app.lisa)
         this.app.packs['lisa-plugins-manager'][pluginInstance.name] = pluginInstance
       })
     })
@@ -33,8 +33,8 @@ module.exports = class PluginService extends Service {
   }
 
   activatePlugin(name) {
-    const pluginClass = require(name)
-    const plugin = new pluginClass(this.app.lisa)
+    const PluginClass = require(name)
+    const plugin = new PluginClass(this.app.lisa)
 
     this.app.packs['lisa-plugins-manager'][plugin.name] = plugin
 
@@ -70,7 +70,7 @@ module.exports = class PluginService extends Service {
         }
 
         // installed
-        const plugin = require(name+'/package')
+        const plugin = require(name + '/package')
         return this.app.orm.Plugin.create({
           name: name,
           version: plugin.version
