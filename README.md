@@ -1,6 +1,7 @@
 # lisa-plugins-manager
 
 [![Gitter][gitter-image]][gitter-url]
+[![Known Vulnerabilities][snyk-image]][snyk-url]
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-download]][npm-url]
 [![Build Status][ci-image]][ci-url]
@@ -10,6 +11,8 @@
 
 Manage plugin system for L.I.S.A. 
 
+[snyk-image]: https://snyk.io/test/github/mylisabox/lisa-plugins-manager/badge.svg
+[snyk-url]: https://snyk.io/test/github/mylisabox/lisa-plugins-manager/
 [npm-image]: https://img.shields.io/npm/v/lisa-plugins-manager.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/lisa-plugins-manager
 [ci-image]: https://img.shields.io/travis/mylisabox/lisa-plugins-manager.svg?style=flat-square&label=Linux%20/%20OSX

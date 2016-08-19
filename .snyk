@@ -1,0 +1,33 @@
+version: v1.5.2
+ignore: {}
+patch:
+  'npm:minimatch:20160620':
+    - npmi > npm > read-installed > read-package-json > glob > minimatch:
+        patched: '2016-08-19T19:15:27.438Z'
+    - npmi > npm > read-package-tree > read-package-json > glob > minimatch:
+        patched: '2016-08-19T19:15:27.438Z'
+    - npmi > npm > read-package-json > glob > minimatch:
+        patched: '2016-08-19T19:15:27.438Z'
+    - npmi > npm > init-package-json > read-package-json > glob > minimatch:
+        patched: '2016-08-19T19:15:27.438Z'
+    - npmi > npm > fstream-npm > fstream-ignore > minimatch:
+        patched: '2016-08-19T19:15:27.438Z'
+    - npmi > npm > init-package-json > glob > minimatch:
+        patched: '2016-08-19T19:15:27.438Z'
+  'npm:negotiator:20160616':
+    - engine.io > accepts > negotiator:
+        patched: '2016-08-19T19:15:27.438Z'
+    - trailpack-realtime > engine.io > accepts > negotiator:
+        patched: '2016-08-19T19:15:27.438Z'
+  'npm:tough-cookie:20160722':
+    - npmi > npm > node-gyp > request > tough-cookie:
+        patched: '2016-08-19T19:15:27.438Z'
+    - npmi > npm > request > tough-cookie:
+        patched: '2016-08-19T19:15:27.438Z'
+    - npmi > npm > npm-registry-client > request > tough-cookie:
+        patched: '2016-08-19T19:15:27.438Z'
+  'npm:ws:20160624':
+    - engine.io > ws:
+        patched: '2016-08-19T19:15:27.438Z'
+    - trailpack-realtime > engine.io > ws:
+        patched: '2016-08-19T19:15:27.438Z'
