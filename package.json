@@ -1,0 +1,50 @@
+{
+  "name": "lisa-plugins-manager",
+  "version": "0.0.0",
+  "description": "Manage plugin system for L.I.S.A.",
+  "homepage": "http://mylisabox.com",
+  "author": {
+    "name": "jaumard",
+    "email": "jimmy.aumard@gmail.com",
+    "url": "https://github.com/trailsjs"
+  },
+  "main": "index.js",
+  "keywords": [
+    "lisa",
+    "mylisabox",
+    "home",
+    "automation",
+    "trailpack",
+    "trails",
+    "trailjs"
+  ],
+  "dependencies": {
+    "npmi": "^2.0.1",
+    "trailpack": "latest",
+    "trails-model": "^1.0.0-beta-2",
+    "trails-service": "^1.0.0-beta-2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-fs": "^0.1.0",
+    "eslint": "^2.4",
+    "eslint-config-trails": "^1.0.4",
+    "lisa-box": "latest",
+    "lodash": "^4.11.1",
+    "mocha": "^2.4.5",
+    "smokesignals": "^1.0.9",
+    "trailpack-core": "^1.0.0-beta-6",
+    "trails": "latest"
+  },
+  "scripts": {
+    "test": "eslint . && mocha"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
+  "eslintConfig": {
+    "extends": "trails"
+  },
+  "repository": "https://github.com/mylisabox/lisa-plugins-manager",
+  "license": "GPL-3.0"
+}

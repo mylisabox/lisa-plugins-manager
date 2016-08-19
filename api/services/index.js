@@ -1,0 +1,1 @@
+exports.PluginService = require('./PluginService')
