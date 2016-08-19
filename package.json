@@ -25,16 +25,16 @@
     "trails-service": "^1.0.0-beta-2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
-    "eslint": "^2.4",
-    "eslint-config-trails": "^1.0.4",
+    "eslint": "^3.3.1",
+    "eslint-config-trails": "^1.0.7",
     "lisa-box": "latest",
-    "lodash": "^4.11.1",
-    "mocha": "^2.4.5",
-    "smokesignals": "^1.0.9",
-    "trailpack-core": "^1.0.0-beta-6",
-    "trails": "latest"
+    "lodash": "^4.15.0",
+    "mocha": "^3.0.2",
+    "smokesignals": "^1.2.2",
+    "trailpack-core": "^1.0.1",
+    "trails": "^1.0.4"
   },
   "scripts": {
     "test": "eslint . && mocha"

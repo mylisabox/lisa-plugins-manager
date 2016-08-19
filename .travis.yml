@@ -14,8 +14,7 @@ deploy:
   provider: npm
   email: hello@mylisabox.com
   api_key:
-    secure: TODO
+    secure: lpL3jU3stzBh8kbqzUTVi0UwOOPkNO/lNRGtHEkXi0Rs2/gna6pOmfZ/EaqoIAdmYDZ3T54QvQd0/IK5dF1T1vsCjK+5ML6JYyNJH6j1J6QsQ35jzL3r9NDUOwuX1rcHUMRjNiEURSGaQddvHowxTrHWwUB8UI2Gh9ZpIjKoR4VlqK46K12H5Tdt5THPbP4hoSTWs/5xWJlOk32sTdtbGjH9wqhZbzY6CSD1RxYecruRMVjG2J9qL5Cne9HV/8hyPm1sRgAwNErbUvpQ0L8AgwP3mijEXuxtBu4mLhWnhZxRRVEnDK86H7hb4f+wQOre1Pdkyu83nvQ4c8RNCppk9+mhOed+oG4uy5EZ9lK0OVIWOGsZjiI2o5LeRcjCp6av4PpL+F1Q7Lya2fbXs+PkQo3JGDUMPisGW/c3XNW5ur7o428HLslJDXGOAMQSsuKpiLe2XTmFVdSAewtk2pwmLrWhhyXIRFfOL9NcNlH0ZN0wn8gAi1+0qzaVeO7V158HYFC455PtsgPZWsXxCMD0JEBvHl3xm1e0LzUIpY/2FVB8nqCiCRkqm+KGmEBoNbqANqdhbxTy6ErRReiT+BQCznmTmk8eydfmbVMJ1XAKHuv9Qtg3xJIwofvS1sIXNyWxm20ezpxzX05GYiSCQJfu8QA4Y22h0CHezVEpieBkci4=
   on:
     tags: true
     repo: mylisabox/lisa-plugins-manager
-    node: 6

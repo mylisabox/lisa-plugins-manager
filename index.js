@@ -12,14 +12,7 @@ module.exports = class ManagerTrailpack extends Trailpack {
   }
 
   /**
-   * Load L.I.S.A. plugins
-   */
-  configure () {
-
-  }
-
-  /**
-   * TODO document method
+   * Load all registered and activated plugin
    */
   initialize () {
     return this.app.services.PluginService.loadPlugins()
