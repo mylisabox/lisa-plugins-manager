@@ -1,7 +1,6 @@
 --reporter spec
 --recursive
 --full-trace
---no-exit
 --timeout 120000
 --slow 50
 --check-leaks
