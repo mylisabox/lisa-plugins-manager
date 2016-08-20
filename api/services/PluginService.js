@@ -79,8 +79,8 @@ module.exports = class PluginService extends Service {
         }
 
         // installed
-        const plugin = require(name + '/package')
-        return this.app.orm.Plugin.create({
+        const plugin = require(name + '/package.json')
+        this.app.orm.Plugin.create({
           name: name,
           version: plugin.version
         }).then(resolve).catch(reject)

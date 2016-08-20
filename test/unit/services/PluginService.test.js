@@ -8,13 +8,14 @@ const expect = chai.expect
 
 describe('PluginService', () => {
   const pluginName = 'lisa-plugin'
+  let service
   it('should exist', () => {
     assert(global.app.api.services['PluginService'])
-    assert(global.app.services['PluginService'])
+    assert(service = global.app.services.PluginService)
   })
 
   it('should install a plugin', () => {
-    return global.app.services['PluginService'].installPlugin(pluginName)
+    return service.installPlugin(pluginName)
       .then(plugin => {
         assert(plugin.version)
         assert.equal(plugin.name, pluginName)
@@ -24,7 +25,7 @@ describe('PluginService', () => {
   })
 
   it.skip('should activate a plugin', () => {
-    return global.app.services['PluginService'].activatePlugin(pluginName)
+    return service.activatePlugin(pluginName)
       .then(pluginIds => {
         assert.equal(pluginIds.length, 1)
         assert.equal(pluginIds[0], 1)
