@@ -2,7 +2,7 @@
 
 const Trailpack = require('trailpack')
 
-module.exports = class ManagerTrailpack extends Trailpack {
+module.exports = class PluginManagerTrailpack extends Trailpack {
 
   /**
    * Validate configuration
@@ -15,6 +15,9 @@ module.exports = class ManagerTrailpack extends Trailpack {
    * Load all registered and activated plugin
    */
   initialize () {
+    this.app.on('trails:stop', () => {
+      this.app.services.PluginService.unloadPlugins()
+    })
     return this.app.services.PluginService.loadPlugins()
   }
 

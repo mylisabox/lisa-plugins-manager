@@ -29,7 +29,7 @@ module.exports = class PluginService extends Service {
    *
    */
   unloadPlugins() {
-
+    //this.app.packs['lisa-plugins-manager']
   }
 
   activatePlugin(name) {
@@ -50,7 +50,16 @@ module.exports = class PluginService extends Service {
   }
 
   deactivatePlugin(name) {
-
+    return this.app.packs['lisa-plugins-manager'][name].unload().then(_ => {
+      delete this.app.packs['lisa-plugins-manager'][name]
+      return this.app.orm.Plugin.update({
+        activated: false
+      }, {
+        where: {
+          name: name
+        }
+      })
+    })
   }
 
   /**
