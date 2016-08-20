@@ -18,3 +18,4 @@ deploy:
   on:
     tags: true
     repo: mylisabox/lisa-plugins-manager
+    node: 6
