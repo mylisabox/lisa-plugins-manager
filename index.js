@@ -15,10 +15,16 @@ module.exports = class PluginManagerTrailpack extends Trailpack {
    * Load all registered and activated plugin
    */
   initialize () {
+    this.app.services.PluginService.pluginsManager = this
+
     this.app.on('trails:stop', () => {
       this.app.services.PluginService.unloadPlugins()
     })
     return this.app.services.PluginService.loadPlugins()
+  }
+
+  get name () {
+    return this.pkg.name.replace(/lisa\-/, '').toCamelCase()
   }
 
   constructor (app) {

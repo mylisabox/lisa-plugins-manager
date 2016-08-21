@@ -20,7 +20,7 @@ module.exports = class PluginService extends Service {
       plugins.forEach(plugin => {
         const PluginClass = require(plugin.name)
         const pluginInstance = new PluginClass(this.app.lisa)
-        this.app.packs['lisa-plugins-manager'][pluginInstance.name] = pluginInstance
+        this.pluginsManager[pluginInstance.name] = pluginInstance
       })
     })
   }
@@ -29,14 +29,15 @@ module.exports = class PluginService extends Service {
    *
    */
   unloadPlugins() {
-    //this.app.packs['lisa-plugins-manager']
+    //this.pluginsManager
   }
 
   activatePlugin(name) {
+    name = name.toCamelCase()
     const PluginClass = require(name)
     const plugin = new PluginClass(this.app.lisa)
 
-    this.app.packs['lisa-plugins-manager'][plugin.name] = plugin
+    this.pluginsManager[plugin.name] = plugin
 
     return plugin.init().then(_ => {
       return this.app.orm.Plugin.update({
@@ -50,8 +51,9 @@ module.exports = class PluginService extends Service {
   }
 
   deactivatePlugin(name) {
-    return this.app.packs['lisa-plugins-manager'][name].unload().then(_ => {
-      delete this.app.packs['lisa-plugins-manager'][name]
+    name = name.toCamelCase()
+    return this.pluginsManager[name].unload().then(_ => {
+      delete this.pluginsManager[name]
       return this.app.orm.Plugin.update({
         activated: false
       }, {
@@ -66,7 +68,6 @@ module.exports = class PluginService extends Service {
    *
    */
   installPlugin(name) {
-
     return new Promise((resolve, reject) => {
       npmi({
         name: name
@@ -82,6 +83,7 @@ module.exports = class PluginService extends Service {
         const plugin = require(name + '/package.json')
         this.app.orm.Plugin.create({
           name: name,
+          camelName: name.toCamelCase(),
           version: plugin.version
         }).then(resolve).catch(reject)
       })

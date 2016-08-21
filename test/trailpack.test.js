@@ -5,7 +5,7 @@ const assert = require('assert')
 describe('Trailpack', () => {
   let pack
   before(() => {
-    pack = global.app.packs['lisa-plugins-manager']
+    pack = global.app.packs.pluginsManager
   })
   it('should be loaded into the app.packs collection', () => {
     assert(pack)

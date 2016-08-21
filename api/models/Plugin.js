@@ -19,6 +19,11 @@ module.exports = class Plugin extends Model {
         primaryKey: true,
         allowNull: false
       },
+      camelName: {
+        type: Sequelize.STRING,
+        uniq: true,
+        allowNull: false
+      },
       version: {
         type: Sequelize.STRING,
         allowNull: false

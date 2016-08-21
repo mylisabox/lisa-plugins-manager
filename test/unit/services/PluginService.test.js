@@ -19,6 +19,7 @@ describe('PluginService', () => {
       .then(plugin => {
         assert(plugin.version)
         assert.equal(plugin.name, pluginName)
+        assert.equal(plugin.camelName, pluginName.toCamelCase())
         assert.equal(plugin.activated, false)
         expect('./node_modules/' + pluginName).to.be.a.directory()
       })
@@ -35,10 +36,11 @@ describe('PluginService', () => {
   it.skip('should be load when server start', () => {
     return global.app.stop().then(_ => {
       return global.app.start().then(_ => {
-        const plugin = global.app.packs['lisa-plugins-manager'][pluginName]
+        const plugin = global.app.packs.pluginsManager[pluginName]
         assert(plugin)
         assert(plugin.version)
         assert.equal(plugin.name, pluginName)
+        assert.equal(plugin.camelName, pluginName.toCamelCase())
         assert.equal(plugin.activated, false)
       })
     })
