@@ -19,9 +19,10 @@
     "trailjs"
   ],
   "dependencies": {
-    "lodash": "^4.15.0",
+    "download": "^5.0.2",
+    "lodash": "^4.16.4",
     "npmi": "^2.0.1",
-    "snyk": "^1.18.0",
+    "snyk": "^1.19.1",
     "trailpack": "^1.0.5",
     "trails-model": "^1.0.0-beta-2",
     "trails-service": "^1.0.0-beta-2"
@@ -29,13 +30,13 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
-    "eslint": "^3.3.1",
-    "eslint-config-trails": "^1.0.7",
-    "lisa-box": "^0.0.7",
-    "mocha": "^3.0.2",
+    "eslint": "^3.8.1",
+    "eslint-config-trails": "^1.0.8",
+    "lisa-box": "0.0.7",
+    "mocha": "^3.1.2",
     "smokesignals": "^1.2.2",
     "trailpack-core": "^1.0.1",
-    "trails": "^1.0.4"
+    "trails": "^1.1.0"
   },
   "scripts": {
     "test": "snyk test && eslint --fix . && mocha",

@@ -2,6 +2,7 @@
 
 const Service = require('trails-service')
 const npmi = require('npmi')
+
 /**
  * @module PluginService
  * @description Service to manage L.I.S.A. plugins
@@ -73,21 +74,25 @@ module.exports = class PluginService extends Service {
         name: name
       }, (err, result) => {
         if (err) {
-          if (err.code === npmi.LOAD_ERR)    this.log.error('npm load error')
+          if (err.code === npmi.LOAD_ERR) this.log.error('npm load error')
           else if (err.code === npmi.INSTALL_ERR) this.log.error('npm install error')
           this.log.error(err.message)
           return reject(err)
         }
 
         // installed
-        const plugin = require(name + '/package.json')
-        this.app.orm.Plugin.create({
-          name: name,
-          camelName: name.toCamelCase(),
-          version: plugin.version
-        }).then(resolve).catch(reject)
+        this._addPlugin(name)
       })
     })
+  }
+
+  _addPlugin(pluginName) {
+    const plugin = require(pluginName + '/package.json')
+    this.app.orm.Plugin.create({
+      name: name,
+      camelName: name.toCamelCase(),
+      version: plugin.version
+    }).then(resolve).catch(reject)
   }
 
   /**
