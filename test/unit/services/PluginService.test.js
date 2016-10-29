@@ -8,20 +8,21 @@ const expect = chai.expect
 
 describe('PluginService', () => {
   const pluginName = 'lisa-plugin'
+  const version = '0.0.5'
   let service
   it('should exist', () => {
     assert(global.app.api.services['PluginService'])
     assert(service = global.app.services.PluginService)
   })
 
-  it.skip('should install a plugin', () => {
-    return service.installPlugin(pluginName)
+  it('should install a plugin', () => {
+    return service.installPlugin(pluginName, version)
       .then(plugin => {
         assert(plugin.version)
         assert.equal(plugin.name, pluginName)
         assert.equal(plugin.camelName, pluginName.toCamelCase())
         assert.equal(plugin.activated, false)
-        expect('./node_modules/' + pluginName).to.be.a.directory()
+        expect('./plugins/' + pluginName).to.be.a.directory()
       })
   })
 

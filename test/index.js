@@ -9,6 +9,9 @@ const app = _.defaultsDeep(lisa, smokesignals.FailsafeConfig)
 before(() => {
   lisa.config.main.packs[lisa.config.main.packs.findIndex(pack => pack.name === 'PluginManagerTrailpack')] = require('../')
   lisa.config.database.models.migrate = 'drop'
+  lisa.config.pluginManager = {
+    dist: `${process.cwd()}/plugins`
+  }
   global.app = new TrailsApp(app)
   return global.app.start()
 })

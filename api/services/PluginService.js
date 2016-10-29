@@ -1,7 +1,9 @@
 'use strict'
 
 const Service = require('trails-service')
-const npmi = require('npmi')
+const download = require('download')
+const fs = require('fs-extra')
+const npm = require('enpeem')
 
 /**
  * @module PluginService
@@ -68,31 +70,52 @@ module.exports = class PluginService extends Service {
   /**
    *
    */
-  installPlugin(name) {
-    return new Promise((resolve, reject) => {
-      npmi({
-        name: name
-      }, (err, result) => {
-        if (err) {
-          if (err.code === npmi.LOAD_ERR) this.log.error('npm load error')
-          else if (err.code === npmi.INSTALL_ERR) this.log.error('npm install error')
-          this.log.error(err.message)
-          return reject(err)
-        }
+  installPlugin(name, version, from) {
+    if (!from) {
+      from = 'npm'
+    }
 
-        // installed
-        this._addPlugin(name)
-      })
+    let url
+
+    switch (from) {
+      default:
+        url = `https://registry.npmjs.org/${name}/-/${name}-${version}.tgz`
+    }
+
+    return download(url, this.app.config.pluginManager.dist, {
+      extract: true
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        const from = `${this.app.config.pluginManager.dist}/package`
+        const path = `${this.app.config.pluginManager.dist}/${name}`
+        npm.install({
+          dir: from,
+          loglevel: 'silent',
+          production: true
+        }, err => {
+          if (err) return reject(err)
+
+          fs.access(path, fs.constants.R_OK | fs.constants.W_OK, err => {
+            if (!err) {
+              fs.removeSync(path)
+            }
+            fs.rename(from, path, err => {
+              if (err) return reject(err)
+              resolve()
+            })
+          })
+        })
+      }).then(() => this._addPlugin(name))
     })
   }
 
   _addPlugin(pluginName) {
-    const plugin = require(pluginName + '/package.json')
-    this.app.orm.Plugin.create({
-      name: name,
-      camelName: name.toCamelCase(),
+    const plugin = require(`${this.app.config.pluginManager.dist}/${pluginName}/package.json`)
+    return this.app.orm.Plugin.create({
+      name: pluginName,
+      camelName: pluginName.toCamelCase(),
       version: plugin.version
-    }).then(resolve).catch(reject)
+    })
   }
 
   /**
