@@ -13,7 +13,10 @@ module.exports = class Plugin extends Model {
 
   static schema(app, Sequelize) {
     return {
-      // First Name
+      internalName: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       name: {
         type: Sequelize.STRING,
         primaryKey: true,
