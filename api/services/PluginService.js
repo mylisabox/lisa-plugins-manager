@@ -11,6 +11,21 @@ const npm = require('enpeem')
  */
 module.exports = class PluginService extends Service {
 
+  _getPluginPath(pluginName) {
+    return `${this.app.config.pluginManager.dist}/${pluginName}`
+  }
+
+  /**
+   *
+   * @param pluginName
+   * @private
+   */
+  _loadPlugin(pluginName) {
+    const PluginClass = require(this._getPluginPath(pluginName))
+    const pluginInstance = new PluginClass(this.app.lisa)
+    this.pluginsManager[pluginInstance.name] = pluginInstance
+  }
+
   /**
    *
    */
@@ -21,9 +36,7 @@ module.exports = class PluginService extends Service {
       }
     }).then(plugins => {
       plugins.forEach(plugin => {
-        const PluginClass = require(plugin.name)
-        const pluginInstance = new PluginClass(this.app.lisa)
-        this.pluginsManager[pluginInstance.name] = pluginInstance
+        this._loadPlugin(plugin.name)
       })
     })
   }
@@ -35,19 +48,16 @@ module.exports = class PluginService extends Service {
     //this.pluginsManager
   }
 
-  activatePlugin(name) {
-    name = name.toCamelCase()
-    const PluginClass = require(name)
-    const plugin = new PluginClass(this.app.lisa)
+  activatePlugin(pluginName) {
+    pluginName = pluginName.toCamelCase()
+    this._loadPlugin(pluginName)
 
-    this.pluginsManager[plugin.name] = plugin
-
-    return plugin.init().then(_ => {
+    return this.pluginsManager[pluginName].init().then(_ => {
       return this.app.orm.Plugin.update({
         activated: true
       }, {
         where: {
-          name: name
+          name: pluginName
         }
       })
     })
@@ -86,8 +96,8 @@ module.exports = class PluginService extends Service {
       extract: true
     }).then(() => {
       return new Promise((resolve, reject) => {
-        const from = `${this.app.config.pluginManager.dist}/package`
-        const path = `${this.app.config.pluginManager.dist}/${name}`
+        const from = this._getPluginPath('package')
+        const path = this._getPluginPath(name)
         npm.install({
           dir: from,
           loglevel: 'silent',
@@ -110,12 +120,12 @@ module.exports = class PluginService extends Service {
   }
 
   _addPlugin(pluginName) {
-    const plugin = require(`${this.app.config.pluginManager.dist}/${pluginName}/package.json`)
+    const plugin = require(`${this._getPluginPath(pluginName)}/package.json`)
     return this.app.orm.Plugin.create({
       name: pluginName,
       camelName: pluginName.toCamelCase(),
       version: plugin.version
-    })
+    }).then(() => this._loadPlugin(pluginName))
   }
 
   /**
