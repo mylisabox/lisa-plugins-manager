@@ -95,7 +95,7 @@ module.exports = class PluginService extends Service {
         }, err => {
           if (err) return reject(err)
 
-          fs.access(path, fs.constants.R_OK | fs.constants.W_OK, err => {
+          fs.access(path, (fs.constants || fs).R_OK | (fs.constants || fs).W_OK, err => {
             if (!err) {
               fs.removeSync(path)
             }
