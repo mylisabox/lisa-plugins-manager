@@ -39,3 +39,4 @@ jspm_packages
 /.tmp/
 /lisa.sqlite
 /plugins
+/yarn.lock

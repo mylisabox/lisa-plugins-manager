@@ -45,25 +45,27 @@ describe('PluginService', () => {
       })
   })
 
-  it('should be load when server start', () => {
-    return global.app.stop().then(_ => {
+  it('should be load when server start', done => {
+    global.app.stop().then(_ => {
       global.app.config.database.models.migrate = 'alter' //override drop to keep saved plugin
-      return global.app.start().then(_ => {
-        const plugin = global.app.packs.pluginsManager[internalPluginName]
+      global.app.on('plugins:loaded', () => {
+        const plugin = global.app.packs.pluginsManager.plugins[internalPluginName]
         assert(plugin)
         assert(plugin.config)
         assert(plugin.pkg)
         assert(plugin.lisa)
         assert(plugin.log)
         assert.equal(plugin.name, internalPluginName)
+        done()
       })
-    })
+      return global.app.start()
+    }).catch(done)
   })
 
   it('should uninstall the plugin', () => {
     return service.uninstallPlugin(pluginName)
       .then(nbRemoved => {
-        const plugin = global.app.packs.pluginsManager[internalPluginName]
+        const plugin = global.app.packs.pluginsManager.plugins[internalPluginName]
         assert(!plugin)
         assert.equal(nbRemoved, 1)
         expect('./plugins/' + pluginName).to.not.be.a.path()

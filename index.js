@@ -8,7 +8,7 @@ module.exports = class PluginManagerTrailpack extends Trailpack {
    * Validate configuration
    */
   validate() {
-
+    this.plugins = {}
   }
 
   configure() {
@@ -22,7 +22,17 @@ module.exports = class PluginManagerTrailpack extends Trailpack {
     this.app.on('trails:stop', () => {
       return this.app.services.PluginService.unloadPlugins()
     })
-    return this.app.services.PluginService.loadPlugins()
+    this.app.on('trails:ready', () => {
+      return this.app.services.PluginService.loadPlugins()
+        .then(results => {
+          this.emit('plugins:loaded')
+        })
+        .catch(err => {
+          this.log.error(err)
+          return this.app.stop()
+        })
+    })
+    return Promise.resolve()
   }
 
   get name() {
