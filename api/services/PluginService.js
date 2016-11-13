@@ -4,6 +4,7 @@ const Service = require('trails-service')
 const download = require('download')
 const fs = require('fs-extra')
 const npm = require('enpeem')
+const _ = require('lodash')
 
 /**
  * @module PluginService
@@ -21,14 +22,24 @@ module.exports = class PluginService extends Service {
 
   /**
    *
-   * @param pluginName
+   * @param pluginRealName
    * @private
    */
   _loadPlugin(pluginRealName) {
     const PluginClass = require(this._getPluginPath(pluginRealName))
     const pluginInstance = new PluginClass(this.app.lisa)
-    this.pluginsManager[pluginInstance.name] = pluginInstance
+    this.pluginsManager.plugins[pluginInstance.name] = pluginInstance
     return Promise.resolve()
+  }
+
+  callOnPlugins(toCall, args = []) {
+    const promises = []
+
+    _.each(this.pluginsManager.plugins, (value, key) => {
+      promises.push(this.pluginsManager.plugins[key][toCall](...args))
+    })
+
+    return Promise.all(promises)
   }
 
   /**
@@ -40,9 +51,12 @@ module.exports = class PluginService extends Service {
         activated: true
       }
     }).then(plugins => {
+      const promises = []
       plugins.forEach(plugin => {
         this._loadPlugin(plugin.name)
+        promises.push(this.pluginsManager.plugins[plugin.internalName].init())
       })
+      return Promise.all(promises)
     })
   }
 
@@ -57,7 +71,7 @@ module.exports = class PluginService extends Service {
     this._loadPlugin(pluginName)
     pluginName = this._getPluginName(pluginName)
 
-    return this.pluginsManager[pluginName].init().then(_ => {
+    return this.pluginsManager.plugins[pluginName].init().then(_ => {
       return this.app.orm.Plugin.update({
         activated: true
       }, {
@@ -70,8 +84,8 @@ module.exports = class PluginService extends Service {
 
   disablePlugin(name) {
     name = this._getPluginName(name)
-    return this.pluginsManager[name].unload().then(_ => {
-      delete this.pluginsManager[name]
+    return this.pluginsManager.plugins[name].unload().then(_ => {
+      delete this.pluginsManager.plugins[name]
       return this.app.orm.Plugin.update({
         activated: false
       }, {
@@ -85,11 +99,7 @@ module.exports = class PluginService extends Service {
   /**
    *
    */
-  installPlugin(name, version, from) {
-    if (!from) {
-      from = 'npm'
-    }
-
+  installPlugin(name, version, from = 'npm') {
     let url
 
     switch (from) {
