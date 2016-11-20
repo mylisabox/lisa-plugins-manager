@@ -42,6 +42,10 @@ module.exports = class PluginService extends Service {
     return Promise.all(promises)
   }
 
+  callApiOnPlugin(plugin, type, file, action, args) {
+    return this.pluginsManager.plugins[this._getPluginName(plugin)][type][file][action](...args)
+  }
+
   /**
    *
    */
