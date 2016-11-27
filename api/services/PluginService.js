@@ -20,6 +20,28 @@ module.exports = class PluginService extends Service {
     return `${this.app.config.pluginManager.dist}/${pluginName}`
   }
 
+  _managePluginBots(pluginName, bots) {
+    const botIds = Object.keys(bots)
+    return botIds.length == 0 ? Promise.resolve() : this.app.orm.ChatBot.findAll({
+      where: {
+        pluginName: pluginName
+      }
+    }).then(chatBots => {
+      const promises = []
+      botIds.forEach(botId => {
+        const bot = chatBots.find(item => botId == item.name)
+        bots[botId].pluginName = pluginName
+        if (bot) {
+          promises.push(this.app.services.ChatBotService.updateBot(botId, bots[botId]))
+        }
+        else {
+          promises.push(this.app.services.ChatBotService.addBot(botId, bots[botId]))
+        }
+      })
+      return Promise.all(promises)
+    }).catch(err => this.log.error(err))
+  }
+
   /**
    *
    * @param pluginRealName
@@ -29,7 +51,7 @@ module.exports = class PluginService extends Service {
     const PluginClass = require(this._getPluginPath(pluginRealName))
     const pluginInstance = new PluginClass(this.app.lisa)
     this.pluginsManager.plugins[pluginInstance.name] = pluginInstance
-    return Promise.resolve()
+    return this._managePluginBots(pluginRealName, pluginInstance.bots).then(() => Promise.resolve(pluginInstance))
   }
 
   callOnPlugins(toCall, args = []) {
@@ -40,6 +62,10 @@ module.exports = class PluginService extends Service {
     })
 
     return Promise.all(promises)
+  }
+
+  callOnPlugin(toCall, pluginName, args = []) {
+    return this.pluginsManager.plugins[this._getPluginName(pluginName)][toCall](...args)
   }
 
   callApiOnPlugin(plugin, type, file, action, args) {

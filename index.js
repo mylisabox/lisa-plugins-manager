@@ -29,7 +29,6 @@ module.exports = class PluginManagerTrailpack extends Trailpack {
         })
         .catch(err => {
           this.log.error(err)
-          //return this.app.stop()
         })
     })
     return Promise.resolve()
