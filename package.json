@@ -21,7 +21,7 @@
   "dependencies": {
     "download": "^5.0.2",
     "enpeem": "^2.2.0",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^2.0.0",
     "lodash": "^4.16.4",
     "snyk": "^1.19.1",
     "trailpack": "^1.0.5",
