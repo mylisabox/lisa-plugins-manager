@@ -23,7 +23,7 @@
     "enpeem": "^2.2.0",
     "fs-extra": "^0.30.0",
     "lodash": "^4.16.4",
-    "snyk": "^1.19.1",
+    "snyk": "^1.27.1",
     "trailpack": "^1.0.5",
     "trails-model": "^1.0.0",
     "trails-service": "^1.0.0"
