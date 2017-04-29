@@ -1,6 +1,6 @@
 'use strict'
 
-const Service = require('trails-service')
+const Service = require('trails/service')
 const download = require('download')
 const fs = require('fs-extra')
 const npm = require('enpeem')
@@ -21,6 +21,9 @@ module.exports = class PluginService extends Service {
   }
 
   _managePluginBots(pluginName, bots) {
+    if (!bots) {
+      bots = {}
+    }
     const botIds = Object.keys(bots)
     return botIds.length == 0 ? Promise.resolve() : this.app.orm.ChatBot.findAll({
       where: {
@@ -68,8 +71,8 @@ module.exports = class PluginService extends Service {
     return this.pluginsManager.plugins[this._getPluginName(pluginName)][toCall](...args)
   }
 
-  callApiOnPlugin(plugin, type, file, action, args) {
-    return this.pluginsManager.plugins[this._getPluginName(plugin)][type][file][action](...args)
+  setDeviceValue(plugin, args) {
+    return this.pluginsManager.plugins[this._getPluginName(plugin)].setDeviceValue(...args)
   }
 
   /**

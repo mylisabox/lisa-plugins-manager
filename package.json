@@ -19,31 +19,29 @@
     "trailjs"
   ],
   "dependencies": {
-    "download": "^5.0.2",
+    "download": "^5.0.3",
     "enpeem": "^2.2.0",
     "fs-extra": "^0.30.0",
-    "lodash": "^4.16.4",
-    "snyk": "^1.19.1",
-    "trailpack": "^1.0.5",
-    "trails-model": "^1.0.0",
-    "trails-service": "^1.0.0"
+    "lodash": "^4.17.4",
+    "snyk": "^1.29.0",
+    "trailpack": "^2.1.2"
   },
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-fs": "^0.1.0",
-    "eslint": "^3.8.1",
-    "eslint-config-trails": "^1.0.8",
-    "lisa-box": "0.0.7",
-    "mocha": "^3.1.2",
-    "pre-commit": "^1.1.3",
-    "smokesignals": "^1.2.2",
-    "trails": "^1.1.0"
+    "eslint": "^3.19.0",
+    "eslint-config-trails": "^3.0.0",
+    "lisa-box": "^0.0.15",
+    "mocha": "^3.3.0",
+    "pre-commit": "^1.2.2",
+    "smokesignals": "^2.1.1",
+    "trails": "^2.0.2"
   },
   "pre-commit": [
     "test"
   ],
   "scripts": {
-    "test": "snyk test && eslint --fix . && mocha",
+    "test": "eslint --fix . && NODE_ENV=testing mocha",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect",
     "mypublish": "npm version patch && git push --tags && git push"
