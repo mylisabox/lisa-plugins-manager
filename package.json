@@ -19,7 +19,7 @@
     "trailjs"
   ],
   "dependencies": {
-    "download": "^5.0.3",
+    "download": "^6.1.0",
     "enpeem": "^2.2.0",
     "fs-extra": "^0.30.0",
     "lodash": "^4.17.4",
