@@ -75,6 +75,10 @@ module.exports = class PluginService extends Service {
     return this.pluginsManager.plugins[this._getPluginName(plugin)].setDeviceValue(...args)
   }
 
+  setDevicesValue(plugin, args) {
+    return this.pluginsManager.plugins[this._getPluginName(plugin)].setDevicesValue(...args)
+  }
+
   /**
    *
    */
