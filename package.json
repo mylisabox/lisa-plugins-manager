@@ -27,7 +27,7 @@
     "trailpack": "^2.1.2"
   },
   "devDependencies": {
-    "chai": "^1.10.0",
+    "chai": "^4.0.0",
     "chai-fs": "^0.1.0",
     "eslint": "^3.19.0",
     "eslint-config-trails": "^3.0.0",
