@@ -171,14 +171,31 @@ module.exports = class PluginService extends Service {
     })
   }
 
+  _updatePlugin(pluginName) {
+    const plugin = require(`${this._getPluginPath(pluginName)}/package.json`)
+    const pluginConfig = require(`${this._getPluginPath(pluginName)}/config`)
+    return this.app.orm.Plugin.update({
+      version: plugin.version,
+      settings: pluginConfig.settings,
+      devicesSettings: pluginConfig.devices,
+      infos: pluginConfig.infos
+    }, {where: {name: plugin.name}}).then(plugin => {
+      return this._loadPlugin(pluginName).then(() => plugin)
+    })
+  }
+
   _addPlugin(pluginName) {
     const plugin = require(`${this._getPluginPath(pluginName)}/package.json`)
+    const pluginConfig = require(`${this._getPluginPath(pluginName)}/config`)
     const name = this._getPluginName(plugin.name)
     return this.app.orm.Plugin.create({
       name: plugin.name,
       internalName: name,
       camelName: name.toCamelCase(),
-      version: plugin.version
+      version: plugin.version,
+      settings: pluginConfig.settings,
+      devicesSettings: pluginConfig.devices,
+      infos: pluginConfig.infos
     }).then(plugin => {
       return this._loadPlugin(pluginName).then(() => plugin)
     })
