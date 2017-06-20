@@ -71,8 +71,13 @@ module.exports = class PluginService extends Service {
     return this.pluginsManager.plugins[this._getPluginName(pluginName)][toCall](...args)
   }
 
+  callOnPluginDriver(toCall, pluginName, driver, args = []) {
+    return this.pluginsManager.plugins[this._getPluginName(pluginName)].drivers[driver][toCall](...args)
+  }
+
   setDeviceValue(plugin, args) {
-    return this.pluginsManager.plugins[this._getPluginName(plugin)].setDeviceValue(...args)
+    const driver = args[0].driver
+    return this.pluginsManager.plugins[this._getPluginName(plugin)].drivers[driver].setDeviceValue(...args)
   }
 
   setDevicesValue(plugin, args) {
