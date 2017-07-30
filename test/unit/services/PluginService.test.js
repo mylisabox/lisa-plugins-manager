@@ -9,7 +9,7 @@ const expect = chai.expect
 describe('PluginService', () => {
   const pluginName = 'lisa-plugin-example'
   const internalPluginName = 'example'
-  const version = '0.0.4'
+  const version = '0.0.7'
 
   let service
   it('should exist', () => {
