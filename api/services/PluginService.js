@@ -89,7 +89,7 @@ module.exports = class PluginService extends Service {
       return Promise.reject(new Error(ERROR_PLUGIN))
     }
 
-    if (!plugin.drivers && !plugin.drivers[driver]) {
+    if (!plugin.drivers || !plugin.drivers[driver]) {
       return Promise.reject(new Error(ERROR_PLUGIN_DRIVER))
     }
 
