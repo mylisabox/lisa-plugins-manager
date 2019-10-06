@@ -1,5 +1,7 @@
-version: v1.5.2
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
 ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:minimatch:20160620':
     - npmi > npm > read-installed > read-package-json > glob > minimatch:
@@ -17,11 +19,11 @@ patch:
   'npm:negotiator:20160616':
     - engine.io > accepts > negotiator:
         patched: '2016-08-19T19:15:27.438Z'
-      lisa-plugin > engine.io > accepts > negotiator:
-        patched: '2016-08-20T09:16:33.335Z'
     - trailpack-realtime > engine.io > accepts > negotiator:
         patched: '2016-08-19T19:15:27.438Z'
-      lisa-plugin > lisa-box > trailpack-realtime > engine.io > accepts > negotiator:
+    - lisa-plugin > engine.io > accepts > negotiator:
+        patched: '2016-08-20T09:16:33.335Z'
+    - lisa-plugin > lisa-box > trailpack-realtime > engine.io > accepts > negotiator:
         patched: '2016-08-20T09:16:33.335Z'
   'npm:tough-cookie:20160722':
     - npmi > npm > node-gyp > request > tough-cookie:
@@ -33,9 +35,14 @@ patch:
   'npm:ws:20160624':
     - engine.io > ws:
         patched: '2016-08-19T19:15:27.438Z'
-      lisa-plugin > engine.io > ws:
-        patched: '2016-08-20T09:16:33.335Z'
     - trailpack-realtime > engine.io > ws:
         patched: '2016-08-19T19:15:27.438Z'
-      lisa-plugin > lisa-box > trailpack-realtime > engine.io > ws:
+    - lisa-plugin > engine.io > ws:
         patched: '2016-08-20T09:16:33.335Z'
+    - lisa-plugin > lisa-box > trailpack-realtime > engine.io > ws:
+        patched: '2016-08-20T09:16:33.335Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-06T00:49:46.011Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-06T00:49:46.011Z'
