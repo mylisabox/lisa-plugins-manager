@@ -23,7 +23,7 @@
     "enpeem": "^2.2.0",
     "fs-extra": "^0.30.0",
     "lodash": "^4.17.4",
-    "snyk": "^1.29.0",
+    "snyk": "^1.316.2",
     "trailpack": "^2.1.2"
   },
   "devDependencies": {
