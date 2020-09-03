@@ -35,7 +35,7 @@ module.exports = class PluginManagerTrailpack extends Trailpack {
   }
 
   get name() {
-    return this.pkg.name.replace(/lisa\-/, '').toCamelCase()
+    return this.pkg.name.replace(/lisa-/, '').toCamelCase()
   }
 
   constructor(app) {

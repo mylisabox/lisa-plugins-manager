@@ -1,12 +1,12 @@
 {
   "name": "lisa-plugins-manager",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Manage plugin system for L.I.S.A.",
   "homepage": "http://mylisabox.com",
   "author": {
     "name": "jaumard",
     "email": "jimmy.aumard@gmail.com",
-    "url": "https://github.com/trailsjs"
+    "url": "https://github.com/jaumard"
   },
   "main": "index.js",
   "keywords": [
@@ -19,22 +19,21 @@
     "trailjs"
   ],
   "dependencies": {
-    "download": "^5.0.3",
+    "download": "^8.0.0",
     "enpeem": "^2.2.0",
-    "fs-extra": "^0.30.0",
-    "lodash": "^4.17.4",
-    "snyk": "^1.29.0",
-    "trailpack": "^2.1.2"
+    "fs-extra": "^9.0.1",
+    "lodash": "^4.17.20",
+    "trailpack": "^2.1.3"
   },
   "devDependencies": {
-    "chai": "^1.10.0",
-    "chai-fs": "^0.1.0",
-    "eslint": "^3.19.0",
-    "eslint-config-trails": "^3.0.0",
-    "lisa-box": "^0.0.21",
-    "mocha": "^3.3.0",
+    "chai": "^4.2.0",
+    "chai-fs": "^2.0.0",
+    "eslint": "^7.8.0",
+    "eslint-config-trails": "^3.1.0",
+    "mocha": "^8.1.3",
+    "lisa-box": "^0.0.22",
     "pre-commit": "^1.2.2",
-    "smokesignals": "^2.1.1",
+    "smokesignals": "^3.0.4",
     "trails": "^2.0.2"
   },
   "pre-commit": [
@@ -42,17 +41,17 @@
   ],
   "scripts": {
     "test": "eslint --fix . && NODE_ENV=testing mocha",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect",
-    "mypublish": "npm version patch && git push --tags && git push"
+    "publishPatch": "npm version patch && npm run push",
+    "publishMinor": "npm version minor && npm run push",
+    "publishMajor": "npm version major && npm run push",
+    "push": "git push --tags && git push"
   },
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 10.0.0"
   },
   "eslintConfig": {
     "extends": "trails"
   },
   "repository": "https://github.com/mylisabox/lisa-plugins-manager",
-  "license": "GPL-3.0",
-  "snyk": true
+  "license": "GPL-3.0"
 }

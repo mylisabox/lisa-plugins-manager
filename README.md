@@ -11,6 +11,13 @@
 
 Manage plugin system for L.I.S.A. 
 
+## Contributing
+We love contributions! Please see our [Contribution Guide](https://github.com/mylisabox/lisa-box/blob/master/.github/CONTRIBUTING.md)
+for more information.
+
+## License
+[GPL-3.0](https://github.com/mylisabox/lisa-plugins-manager/blob/master/LICENSE)
+
 [snyk-image]: https://snyk.io/test/github/mylisabox/lisa-plugins-manager/badge.svg
 [snyk-url]: https://snyk.io/test/github/mylisabox/lisa-plugins-manager/
 [npm-image]: https://img.shields.io/npm/v/lisa-plugins-manager.svg?style=flat-square

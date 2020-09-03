@@ -23,7 +23,7 @@ module.exports = class PluginService extends Service {
   }
 
   _getPluginName(pluginName) {
-    return pluginName.replace(/lisa\-/, '').replace(/plugin\-/, '').toCamelCase()
+    return pluginName.replace(/lisa-/, '').replace(/plugin-/, '').toCamelCase()
   }
 
   _getPluginPath(pluginName) {
@@ -184,32 +184,41 @@ module.exports = class PluginService extends Service {
   /**
    *
    */
-  installPlugin(name, version, from = 'npm') {
+  installPlugin(name, version = 'master', from = 'github') {
     let url
 
     switch (from) {
-      default:
-        url = `https://registry.npmjs.org/${name}/-/${name}-${version}.tgz`
+    case 'npm':
+      url = `https://registry.npmjs.org/${name}/-/${name}-${version}.tgz`
+      break
+    default:
+      url = `https://github.com/mylisabox/${name}/archive/${version}.zip`
     }
-
+    this.log.silly('download plugin from ' + url)
     return download(url, this.app.config.pluginManager.dist, {
       extract: true
     }).then(() => {
       return new Promise((resolve, reject) => {
-        const from = this._getPluginPath('package')
         const path = this._getPluginPath(name)
+        const fromPath = from === 'npm' ? this._getPluginPath('package') : path + '-' + version
+
+        this.log.silly('npm install to' + fromPath)
         npm.install({
-          dir: from,
+          dir: fromPath,
           loglevel: 'silent',
           production: true
         }, err => {
+          this.log.silly('npm install finished, error: ' + err)
           if (err) return reject(err)
 
           fs.access(path, (fs.constants || fs).R_OK | (fs.constants || fs).W_OK, err => {
             if (!err) {
+              this.log.silly('delete existing ' + path)
               fs.removeSync(path)
             }
-            fs.rename(from, path, err => {
+            this.log.silly('rename ' + fromPath + ' to ' + path)
+            fs.rename(fromPath, path, err => {
+              this.log.silly('renamed error: ' + err)
               if (err) return reject(err)
               resolve()
             })
